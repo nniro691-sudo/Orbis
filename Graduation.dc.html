@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Condiment&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:#010828;color:#EFF4FF;-webkit-font-smoothing:antialiased}
+  ::selection{background:#6FFF00;color:#010828}
+  .liquid-glass{background:rgba(255,255,255,0.01);background-blend-mode:luminosity;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:none;box-shadow:inset 0 1px 1px rgba(255,255,255,0.1);position:relative;overflow:hidden}
+  .liquid-glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,0.45) 0%,rgba(255,255,255,0.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,0.15) 80%,rgba(255,255,255,0.45) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+  .nav-link{transition:color .3s ease}
+  .nav-link:hover{color:#6FFF00}
+  .glass-hover{transition:background .3s ease,transform .3s ease}
+  .glass-hover:hover{background:rgba(255,255,255,0.10)}
+  .cta-btn{transition:transform .25s ease,background .25s ease,color .25s ease}
+  .cta-btn:hover{transform:translateY(-2px)}
+  .chip{transition:border-color .3s ease,color .3s ease}
+  .chip:hover{border-color:#6FFF00;color:#6FFF00}
+</style>
+</helmet>
+
+<div style="position:relative;width:100%;background:#010828;overflow-x:hidden;font-family:'Noto Sans SC',sans-serif;min-height:100vh">
+
+  <!-- TEXTURE OVERLAY -->
+  <div style="position:fixed;inset:0;z-index:50;pointer-events:none;mix-blend-mode:lighten;opacity:0.14;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;);background-size:220px 220px"></div>
+
+  <!-- TOP BAR -->
+  <header style="position:relative;z-index:10;max-width:1831px;width:100%;margin:0 auto;padding:28px clamp(20px,5vw,80px);display:flex;align-items:center;justify-content:space-between;gap:24px">
+    <a href="Orbis.Nft.dc.html" style="font-family:'Anton',sans-serif;font-size:16px;letter-spacing:0.04em;text-transform:uppercase;color:#EFF4FF;text-decoration:none">Orbis.Nft</a>
+    <nav class="liquid-glass" style="border-radius:28px;padding:16px 40px;display:flex;gap:30px;align-items:center">
+      <a href="Orbis.Nft.dc.html" class="nav-link" style="font-family:'Anton',sans-serif;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:#EFF4FF;text-decoration:none">首页</a>
+      <a href="Services.dc.html" class="nav-link" style="font-family:'Anton',sans-serif;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:#EFF4FF;text-decoration:none">服务内容</a>
+      <a href="Graduation.dc.html" class="nav-link" style="font-family:'Anton',sans-serif;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:#6FFF00;text-decoration:none">毕业设计</a>
+      <a href="Orbis.Nft.dc.html#contact" class="nav-link" style="font-family:'Anton',sans-serif;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:#EFF4FF;text-decoration:none">联系</a>
+    </nav>
+  </header>
+
+  <!-- PAGE HERO (video bg) -->
+  <section data-screen-label="GradHero" style="position:relative;width:100%;overflow:hidden;margin-top:8px">
+    <div style="position:relative;min-height:62vh;display:flex;align-items:center;overflow:hidden;border-radius:0">
+      <video src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_055427_ac7035b5-9f3b-4289-86fc-941b2432317d.mp4" autoplay loop muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0"></video>
+      <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(1,8,40,0.85) 0%,rgba(1,8,40,0.55) 50%,rgba(1,8,40,0.35) 100%)"></div>
+      <div style="position:relative;z-index:2;max-width:1831px;width:100%;margin:0 auto;padding:clamp(48px,6vw,90px) clamp(20px,5vw,80px)">
+        <a href="Orbis.Nft.dc.html" class="nav-link" style="display:inline-flex;align-items:center;gap:8px;font-family:'Anton',sans-serif;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:#EFF4FF;opacity:0.8;text-decoration:none;margin-bottom:24px"><span dangerouslySetInnerHTML="{{ back }}"></span>返回首页</a>
+        <div style="position:relative;max-width:860px">
+          <span style="font-family:'Condiment',cursive;font-size:clamp(28px,4vw,60px);color:#6FFF00;mix-blend-mode:exclusion;opacity:0.9;transform:rotate(-2deg);display:inline-block">graduation</span>
+          <h1 style="margin-top:4px;font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:clamp(32px,5vw,72px);line-height:1.1;letter-spacing:-0.01em;color:#EFF4FF">为毕业设计提供从概念表达<br>到 3D 打印展示的<span style="color:#6FFF00">一站式支持</span></h1>
+          <p style="margin-top:22px;max-width:640px;font-family:'Noto Sans SC',sans-serif;font-weight:300;font-size:clamp(14px,1.05vw,16px);line-height:2;color:#EFF4FF;opacity:0.88">毕业设计最难的不是只有「做出来」，而是让评审一眼看懂你的主题、逻辑、亮点和完成度。帮助工业设计、视觉设计、产品设计、建筑模型、雕塑、潮玩、IP形象等方向的学生，将毕业设计从概念、界面、模型到展示现场完整串联起来。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROVIDED SERVICES -->
+  <section data-screen-label="GradServices" style="position:relative;width:100%;background:#010828;padding:clamp(56px,7vw,100px) 0">
+    <div style="max-width:1831px;width:100%;margin:0 auto;padding:0 clamp(20px,5vw,80px)">
+      <div style="font-family:'Anton',sans-serif;font-size:clamp(22px,2.4vw,34px);text-transform:uppercase;color:#EFF4FF;margin-bottom:8px">可提供服务</div>
+      <div style="width:120px;height:8px;background:#6FFF00;margin-bottom:clamp(28px,3vw,40px)"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;max-width:1000px">
+        <sc-for list="{{ gradServices }}" as="g" hint-placeholder-count="10">
+          <span class="chip" style="border:1px solid rgba(239,244,255,0.18);border-radius:999px;padding:9px 18px;font-size:14px;color:#EFF4FF;opacity:0.88">{{ g }}</span>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section data-screen-label="GradPackages" style="position:relative;width:100%;background:#02103a;padding:clamp(56px,7vw,100px) 0">
+    <div style="max-width:1831px;width:100%;margin:0 auto;padding:0 clamp(20px,5vw,80px)">
+      <div style="position:relative;margin-bottom:clamp(36px,4vw,56px)">
+        <span style="font-family:'Condiment',cursive;font-size:clamp(24px,3vw,46px);color:#6FFF00;mix-blend-mode:exclusion;opacity:0.9;transform:rotate(-2deg);display:inline-block">packages</span>
+        <h2 style="margin-top:4px;font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:clamp(26px,3.6vw,52px);line-height:1.1;color:#EFF4FF">三档毕设服务套餐</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px">
+        <sc-for list="{{ gradPackages }}" as="p" hint-placeholder-count="3">
+          <div class="liquid-glass glass-hover" style="border-radius:24px;padding:32px 28px;display:flex;flex-direction:column;min-height:300px">
+            <div style="font-family:'Anton',sans-serif;font-size:14px;letter-spacing:0.12em;text-transform:uppercase;color:#6FFF00">{{ p.tag }}</div>
+            <h3 style="margin-top:12px;font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:24px;color:#EFF4FF">{{ p.t }}</h3>
+            <p style="margin-top:16px;font-family:'Noto Sans SC',sans-serif;font-weight:300;font-size:13.5px;line-height:1.85;color:#EFF4FF;opacity:0.78">{{ p.fit }}</p>
+            <div style="margin-top:auto;padding-top:20px;border-top:1px solid rgba(239,244,255,0.12);font-family:'Noto Sans SC',sans-serif;font-size:13px;line-height:1.8;color:#EFF4FF;opacity:0.92"><span style="color:#6FFF00;font-weight:500">交付：</span>{{ p.deliver }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING VALUE + CTA -->
+  <footer style="position:relative;width:100%;background:#010828;padding:clamp(64px,8vw,120px) 0;border-top:1px solid rgba(239,244,255,0.08)">
+    <div style="max-width:1831px;width:100%;margin:0 auto;padding:0 clamp(20px,5vw,80px)">
+      <p style="font-family:'Noto Sans SC',sans-serif;font-weight:500;font-size:clamp(20px,3vw,40px);line-height:1.4;color:#EFF4FF;max-width:920px">让毕业设计不只是完成作业，而是成为一个<span style="color:#6FFF00">能被看见、被理解、被记住</span>的完整作品。</p>
+      <div style="margin-top:clamp(32px,4vw,48px);display:flex;flex-wrap:wrap;gap:16px">
+        <a href="Orbis.Nft.dc.html#contact" class="cta-btn" style="background:#6FFF00;color:#010828;font-family:'Anton',sans-serif;font-size:15px;letter-spacing:0.03em;text-transform:uppercase;padding:18px 34px;border-radius:999px;text-decoration:none">咨询毕设方案</a>
+        <a href="Services.dc.html" class="cta-btn liquid-glass glass-hover" style="color:#EFF4FF;font-family:'Anton',sans-serif;font-size:15px;letter-spacing:0.03em;text-transform:uppercase;padding:18px 34px;border-radius:999px;text-decoration:none">查看全部服务</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const kick = () => document.querySelectorAll('video').forEach(v => { v.muted = true; v.play().catch(() => {}); });
+    kick();
+    this._t1 = setTimeout(kick, 800);
+    this._t2 = setTimeout(kick, 2500);
+  }
+  componentWillUnmount() { clearTimeout(this._t1); clearTimeout(this._t2); }
+
+  renderVals() {
+    const H = s => ({ __html: s });
+    const back = H('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>');
+
+    const gradServices = ['毕业设计主题梳理','作品展示逻辑梳理','展板信息结构设计','答辩展示视觉设计','模型可打印性检查','3D打印方案制定','展示底座与场景搭建','作品拍摄视觉包装','答辩PPT视觉优化','作品集页面包装'];
+
+    const gradPackages = [
+      { tag: 'BASIC', t: '基础打印咨询', fit: '适合已有模型，只需要判断能不能打印、怎么打印、多少钱打印。', deliver: '模型评估、打印建议、材料建议、报价参考。' },
+      { tag: 'OPTIMIZE', t: '毕设展示优化', fit: '适合已有作品，但展示效果普通，需要提升展板、场景和答辩视觉。', deliver: '展示逻辑、展板设计建议、场景氛围建议、答辩PPT优化。' },
+      { tag: 'FULL', t: '毕设完整落地', fit: '适合需要从模型、打印、展示、拍摄到答辩包装整体提升的项目。', deliver: '模型评估、打印对接、展示场景设计、展板设计、作品拍摄包装、答辩视觉支持。' },
+    ];
+
+    return { back, gradServices, gradPackages };
+  }
+}
+</script>
+</body>
+</html>

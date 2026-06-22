@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Condiment&family=Geist:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;min-height:100%;height:auto!important;overflow-y:auto!important}
+  body{min-height:100%;height:auto!important;overflow-y:auto!important;background:#050607;color:#EFF4FF;-webkit-font-smoothing:antialiased;touch-action:pan-y;overscroll-behavior-y:auto}
+  #dc-root,#dc-root>.sc-host{min-height:100%!important;height:auto!important;overflow:visible!important}
+  ::selection{background:#EFF4FF;color:#050607}
+  .liquid-glass{background:rgba(255,255,255,0.01);background-blend-mode:luminosity;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:none;box-shadow:inset 0 1px 1px rgba(255,255,255,0.1);position:relative;overflow:hidden}
+  .liquid-glass::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,0.45) 0%,rgba(255,255,255,0.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,0.15) 80%,rgba(255,255,255,0.45) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+  .nav-link{transition:color .3s ease}
+  .nav-link:hover{color:#EFF4FF}
+  .glass-hover{transition:background .3s ease,transform .3s ease}
+  .glass-hover:hover{background:rgba(255,255,255,0.10)}
+  .arrow-btn{transition:transform .3s ease}
+  .arrow-btn:hover{transform:scale(1.1)}
+  .cta-btn{transition:transform .25s ease,background .25s ease,color .25s ease}
+  .cta-btn:hover{transform:translateY(-2px)}
+  .chip{transition:border-color .3s ease,color .3s ease}
+  .chip:hover{border-color:#EFF4FF;color:#EFF4FF}
+  .section-inner{max-width:1831px;width:100%;margin:0 auto;padding:0 clamp(20px,5vw,80px)}
+  .section-kicker{font-family:'Anton',sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#EFF4FF}
+  .section-title{font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:clamp(28px,4.2vw,58px);line-height:1.12;letter-spacing:0;color:#EFF4FF}
+  .muted-copy{font-family:'Noto Sans SC',sans-serif;font-weight:300;font-size:clamp(14px,1.05vw,16px);line-height:1.85;color:#EFF4FF;opacity:.76}
+  .info-toggle summary{cursor:pointer;list-style:none}
+  .info-toggle summary:focus{outline:none}
+  .info-toggle summary:focus-visible{box-shadow:inset 0 0 0 2px rgba(255,255,255,.7)}
+  .info-toggle summary::-webkit-details-marker{display:none}
+  .toggle-icon{transition:transform .25s ease}
+  .info-toggle[open] .toggle-icon{transform:rotate(90deg)}
+  .section-inner{position:relative;z-index:2}
+  .content-card{background-color:rgba(5,7,11,.32);background-image:radial-gradient(circle at var(--mx,50%) var(--my,0%),rgba(255,255,255,.08),transparent 34%),linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.018));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.16);box-shadow:0 18px 60px rgba(0,0,0,.22);position:relative;overflow:hidden}
+  .content-card::before{content:'';position:absolute;inset:0;background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.07) 45%,transparent 60%);transform:translateX(-120%);transition:transform .8s ease;pointer-events:none}
+  .content-card:hover::before{transform:translateX(120%)}
+  .content-card::after{content:'';position:absolute;inset:auto 0 0 0;height:3px;background:linear-gradient(90deg,#EFF4FF,rgba(255,255,255,0));opacity:.75;pointer-events:none}
+  .content-subcard{background:rgba(0,0,0,.24);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.12);box-shadow:none}
+  .focus-card{transition:transform .35s ease,background .35s ease,border-color .35s ease,box-shadow .35s ease}
+  .focus-card:hover{transform:translateY(-6px);background-color:rgba(10,11,12,.42);border-color:rgba(255,255,255,.34);box-shadow:0 26px 80px rgba(0,0,0,.34)}
+  .content-card video{transition:transform 1s ease,filter .6s ease}
+  .content-card:hover video{transform:scale(1.045);filter:saturate(1.08)}
+  .team-card .team-reveal{max-height:0;opacity:0;overflow:hidden;transition:max-height .32s ease,opacity .32s ease,margin-top .32s ease}
+  .team-card:hover .team-reveal,.team-card[open] .team-reveal{max-height:360px;opacity:1;margin-top:18px}
+  .solid-chip{display:inline-flex;align-items:center;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);padding:9px 15px;font-family:'Noto Sans SC',sans-serif;font-size:12px;font-weight:500;letter-spacing:.02em;color:#EFF4FF}
+  .reveal-on-scroll{opacity:0;transform:translateY(30px);transition:opacity .65s ease,transform .65s ease}
+  .reveal-on-scroll.is-visible{opacity:1;transform:translateY(0)}
+  .grad-bg-video{position:absolute;inset:-8%;width:116%;height:116%;object-fit:cover;opacity:.96;filter:saturate(1.02) contrast(1.02);transform:scale(1.02);animation:slowDrift 18s ease-in-out infinite alternate}
+  .grad-bg-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.12) 0%,rgba(0,0,0,.03) 46%,rgba(0,0,0,.08) 100%),radial-gradient(circle at 78% 28%,rgba(255,255,255,.05),transparent 34%);z-index:1}
+  .grad-particles{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:.78}
+  .grad-glow{position:absolute;width:34vw;height:34vw;right:4%;top:12%;border-radius:999px;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 64%);filter:blur(8px);z-index:1;animation:pulseGlow 5.8s ease-in-out infinite}
+  .workflow-hero{min-height:100vh;display:flex;align-items:flex-end;overflow:hidden;background:#050607}
+  .workflow-bg-video{position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;opacity:.9;filter:saturate(.92) contrast(1.04);transform:scale(1.01)}
+  .workflow-bg-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.2) 0%,rgba(0,0,0,.34) 38%,rgba(0,0,0,.82) 100%),linear-gradient(90deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.28) 44%,rgba(0,0,0,.08) 100%)}
+  .workflow-ambient{position:absolute;inset:auto -10% -22% -10%;height:46%;z-index:1;background:radial-gradient(ellipse at 50% 45%,rgba(255,255,255,.16),rgba(255,255,255,0) 58%);filter:blur(24px);opacity:.56;pointer-events:none}
+  .workflow-layout{width:100%;padding-top:clamp(96px,12vh,150px);padding-bottom:clamp(42px,8vh,86px);display:grid;grid-template-columns:minmax(280px,.86fr) minmax(320px,1.14fr);gap:clamp(28px,5vw,76px);align-items:end}
+  .workflow-copy{max-width:760px}
+  .workflow-copy .section-title{font-family:'Geist','Noto Sans SC',sans-serif;font-weight:600;letter-spacing:0;font-size:clamp(34px,5.2vw,76px);line-height:1.05;text-wrap:balance}
+  .workflow-script{font-family:'Condiment',cursive;font-size:clamp(28px,4vw,60px);color:#EFF4FF;mix-blend-mode:exclusion;opacity:.92;transform:rotate(-2deg);display:inline-block}
+  .workflow-note{margin-top:22px;max-width:520px;font-family:'Geist','Noto Sans SC',sans-serif;font-weight:300;font-size:clamp(14px,1.15vw,17px);line-height:1.8;color:rgba(239,244,255,.7)}
+  .workflow-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
+  .workflow-card{min-height:310px;border-radius:24px;padding:0;background:rgba(255,255,255,.018);background-blend-mode:luminosity;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);border:none;box-shadow:inset 0 1px 1px rgba(255,255,255,.1),0 24px 70px rgba(0,0,0,.24);position:relative;overflow:hidden;transition:transform .28s ease,background .28s ease,box-shadow .28s ease}
+  .workflow-card::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.15) 80%,rgba(255,255,255,.45) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:2}
+  .workflow-card::after{content:none}
+  .workflow-card:hover{transform:translateY(-8px);background:rgba(255,255,255,.04);box-shadow:inset 0 1px 1px rgba(255,255,255,.16),0 30px 86px rgba(0,0,0,.34)}
+  .workflow-card summary{min-height:310px;padding:26px 24px;display:flex;flex-direction:column}
+  .workflow-number{font-family:'Geist','Noto Sans SC',sans-serif;font-size:clamp(44px,4vw,68px);font-weight:300;line-height:1;color:rgba(239,244,255,.18)}
+  .workflow-card h3{margin-top:auto;font-family:'Geist','Noto Sans SC',sans-serif;font-weight:600;font-size:clamp(20px,1.6vw,26px);line-height:1.25;color:#EFF4FF}
+  .workflow-card p{margin-top:12px;font-family:'Geist','Noto Sans SC',sans-serif;font-weight:300;font-size:14px;line-height:1.75;color:rgba(239,244,255,.7)}
+  .workflow-card .toggle-icon{margin-top:20px;color:#EFF4FF}
+  .workflow-steps{padding:0 24px 26px;display:grid;gap:10px}
+  .workflow-step{display:flex;gap:12px;font-family:'Geist','Noto Sans SC',sans-serif;font-size:13.5px;line-height:1.65;color:rgba(239,244,255,.82)}
+  .workflow-step span{width:6px;height:6px;margin-top:8px;border-radius:999px;background:#EFF4FF;flex:none;box-shadow:0 0 18px rgba(255,255,255,.28)}
+  .cta-btn{position:relative;overflow:hidden}
+  .cta-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent,rgba(255,255,255,.28),transparent);transform:translateX(-120%);transition:transform .65s ease;pointer-events:none}
+  .cta-btn:hover::after{transform:translateX(120%)}
+  @keyframes slowDrift{from{transform:scale(1.02) translate3d(-1%,0,0)}to{transform:scale(1.08) translate3d(1.5%,-1%,0)}}
+  @keyframes pulseGlow{0%,100%{opacity:.35;transform:scale(.96)}50%{opacity:.85;transform:scale(1.08)}}
+  @media (max-width:960px){
+    .split-grid{grid-template-columns:1fr!important}
+    .workflow-layout{grid-template-columns:1fr;align-items:start}
+    .workflow-grid{grid-template-columns:1fr}
+    .workflow-card,.workflow-card summary{min-height:auto}
+  }
+  @media (max-width:760px){
+    header{flex-wrap:wrap!important;align-items:flex-start!important}
+    header nav{order:3;width:100%;overflow-x:auto;padding:14px 18px!important;gap:18px!important}
+    header > div:last-child{display:none!important}
+    .social-stack{display:none!important}
+    .hero-script{display:none!important}
+    .reveal-on-scroll{transform:translateY(18px)}
+    .grad-bg-video{opacity:.9}
+    .workflow-hero{min-height:auto}
+    .workflow-bg-video{opacity:.74}
+    .workflow-layout{padding-top:110px;padding-bottom:54px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .reveal-on-scroll{opacity:1!important;transform:none!important;filter:none!important}
+  }
+</style>
+</helmet>
+
+<div style="position:relative;width:100%;background:#050607;overflow-x:hidden;font-family:'Noto Sans SC',sans-serif">
+
+  <!-- TEXTURE OVERLAY -->
+  <div style="position:fixed;inset:0;z-index:50;pointer-events:none;mix-blend-mode:lighten;opacity:0.14;background-image:url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E&quot;);background-size:220px 220px"></div>
+
+  <!-- ===================== SECTION 1 : HERO ===================== -->
+  <section data-screen-label="Hero" style="position:relative;min-height:100vh;width:100%;border-bottom-left-radius:32px;border-bottom-right-radius:32px;overflow:hidden;display:flex;flex-direction:column">
+    <video src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_045634_e1c98c76-1265-4f5c-882a-4276f2080894.mp4" autoplay loop muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0"></video>
+    <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.15) 35%,rgba(0,0,0,0.45) 100%)"></div>
+
+    <div style="position:relative;z-index:2;max-width:1831px;width:100%;margin:0 auto;padding:32px clamp(20px,5vw,80px) clamp(48px,7vw,90px);display:flex;flex-direction:column;flex:1">
+
+      <!-- Header -->
+      <header style="display:flex;align-items:center;justify-content:space-between;gap:24px">
+        <div style="font-family:'Anton',sans-serif;font-size:16px;letter-spacing:0.04em;text-transform:uppercase;color:#EFF4FF">Orbis.Nft</div>
+        <nav class="liquid-glass" style="border-radius:28px;padding:20px 48px;display:flex;gap:34px;align-items:center">
+          <sc-for list="{{ nav }}" as="item" hint-placeholder-count="5">
+            <a href="{{ item.href }}" class="nav-link" style="font-family:'Anton',sans-serif;font-size:13px;letter-spacing:0.06em;text-transform:uppercase;color:#EFF4FF;text-decoration:none;white-space:nowrap">{{ item.label }}</a>
+          </sc-for>
+        </nav>
+        <div style="width:90px"></div>
+      </header>
+
+      <!-- Hero body -->
+      <div style="flex:1;display:flex;flex-direction:column;justify-content:center;position:relative;margin-top:clamp(24px,4vw,40px)">
+
+        <!-- Social icons top-right -->
+        <div class="social-stack" style="position:absolute;top:0;right:0;display:flex;flex-direction:column;gap:14px;z-index:4">
+          <sc-for list="{{ socials }}" as="s" hint-placeholder-count="3">
+            <a href="{{ s.href }}" class="liquid-glass glass-hover" style="width:56px;height:56px;border-radius:1rem;display:flex;align-items:center;justify-content:center;color:#EFF4FF;text-decoration:none" dangerouslySetInnerHTML="{{ s.icon }}"></a>
+          </sc-for>
+        </div>
+
+        <div style="position:relative;max-width:900px;margin-left:clamp(0px,6vw,128px)">
+          <div style="position:relative;display:inline-block">
+            <h1 style="font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:clamp(36px,6.2vw,86px);line-height:1.08;letter-spacing:0;color:#EFF4FF;max-width:880px">让想法从界面走向场景，<br>从概念变成<span style="color:#EFF4FF">可展示的作品</span></h1>
+            <span class="hero-script" style="position:absolute;top:-0.4em;right:clamp(-10px,2vw,30px);font-family:'Condiment',cursive;font-size:clamp(24px,4vw,52px);color:#EFF4FF;mix-blend-mode:exclusion;opacity:0.9;transform:rotate(-3deg);white-space:nowrap">from idea to object</span>
+          </div>
+
+          <!-- Buttons -->
+          <div style="margin-top:34px;display:flex;flex-wrap:wrap;gap:16px;align-items:center">
+            <a href="#contact" class="cta-btn" style="background:#EFF4FF;color:#050607;font-family:'Anton',sans-serif;font-size:15px;letter-spacing:0.03em;text-transform:uppercase;padding:18px 34px;border-radius:999px;text-decoration:none">咨询项目方案</a>
+            <a href="Services.dc.html" class="cta-btn liquid-glass glass-hover" style="color:#EFF4FF;font-family:'Anton',sans-serif;font-size:15px;letter-spacing:0.03em;text-transform:uppercase;padding:18px 34px;border-radius:999px;text-decoration:none">查看服务内容</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 2 : TEAM INTRO ===================== -->
+  <section id="team" data-screen-label="TeamIntro" style="position:relative;width:100%;background:#050607;padding:clamp(64px,8vw,110px) 0">
+    <div class="section-inner">
+      <div class="split-grid" style="display:grid;grid-template-columns:minmax(280px,.85fr) minmax(320px,1.15fr);gap:clamp(32px,6vw,86px);align-items:start">
+        <div style="position:relative">
+          <span style="font-family:'Condiment',cursive;font-size:clamp(24px,3vw,46px);color:#EFF4FF;mix-blend-mode:exclusion;opacity:0.9;transform:rotate(-2deg);display:inline-block">team</span>
+          <h2 class="section-title" style="margin-top:8px">团队介绍</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px">
+          <details class="team-card info-toggle content-card focus-card" open style="border-radius:24px;padding:0">
+            <summary style="padding:26px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+              <span>
+                <span style="font-family:'Anton',sans-serif;font-size:13px;letter-spacing:.1em;color:#EFF4FF">PROFILE</span>
+                <span style="display:block;margin-top:12px;font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:22px;color:#EFF4FF">设计背景</span>
+              </span>
+              <span class="toggle-icon" style="display:flex;color:#EFF4FF;margin-top:4px" dangerouslySetInnerHTML="{{ chevron }}"></span>
+            </summary>
+            <div class="team-reveal" style="padding:0 26px 26px">
+              <p class="muted-copy">前京东 / 新浪 UI 设计师，多年互联网产品体验设计经验。专注于产品设计、场景视觉搭建与 3D 打印展示落地，帮助企业、团队、学生与创作者，把想法转化为可展示、可交付的完整成果。</p>
+            </div>
+          </details>
+
+          <details class="team-card info-toggle content-card focus-card" style="border-radius:24px;padding:0">
+            <summary style="padding:26px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+              <span>
+                <span style="font-family:'Anton',sans-serif;font-size:13px;letter-spacing:.1em;color:#EFF4FF">FOCUS</span>
+                <span style="display:block;margin-top:12px;font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:22px;color:#EFF4FF">服务方向</span>
+              </span>
+              <span class="toggle-icon" style="display:flex;color:#EFF4FF;margin-top:4px" dangerouslySetInnerHTML="{{ chevron }}"></span>
+            </summary>
+            <div class="team-reveal" style="padding:0 26px 26px;display:flex;flex-wrap:wrap;gap:10px">
+              <sc-for list="{{ tags }}" as="t" hint-placeholder-count="5">
+                <span class="solid-chip">{{ t }}</span>
+              </sc-for>
+            </div>
+          </details>
+
+          <details class="team-card info-toggle content-card focus-card" style="border-radius:24px;padding:0">
+            <summary style="padding:26px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+              <span>
+                <span style="font-family:'Anton',sans-serif;font-size:13px;letter-spacing:.1em;color:#EFF4FF">WORKFLOW</span>
+                <span style="display:block;margin-top:12px;font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:22px;color:#EFF4FF">工具与落地</span>
+              </span>
+              <span class="toggle-icon" style="display:flex;color:#EFF4FF;margin-top:4px" dangerouslySetInnerHTML="{{ chevron }}"></span>
+            </summary>
+            <div class="team-reveal" style="padding:0 26px 26px">
+              <p class="muted-copy">Figma / AI / 3D 工作流贯穿产品体验设计、场景视觉搭建、3D打印展示与毕业设计落地。</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 2 : CORE VALUE (video bg) ===================== -->
+  <section data-screen-label="CoreValue" style="position:relative;width:100%;overflow:hidden;display:flex;align-items:center;min-height:72vh">
+    <video src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_151551_992053d1-3d3e-4b8c-abac-45f22158f411.mp4" autoplay loop muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0"></video>
+    <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,0.5) 0%,rgba(0,0,0,0.35) 50%,rgba(0,0,0,0.6) 100%)"></div>
+
+    <div style="position:relative;z-index:2;max-width:1831px;width:100%;margin:0 auto;padding:clamp(64px,9vw,110px) clamp(20px,5vw,80px)">
+      <div class="split-grid" style="display:grid;grid-template-columns:minmax(280px,.85fr) minmax(320px,1fr);gap:clamp(32px,6vw,86px);align-items:start">
+        <div style="position:relative">
+          <span style="position:absolute;top:-0.7em;left:0;font-family:'Condiment',cursive;font-size:clamp(28px,3.6vw,56px);color:#EFF4FF;mix-blend-mode:exclusion;opacity:0.9;transform:rotate(-3deg)">the point is</span>
+          <h2 class="section-title" style="font-size:clamp(30px,4.6vw,64px);margin-top:.4em">不止做一张图，<br>而是帮你完成<br>一次完整的「表达」</h2>
+        </div>
+        <div style="display:grid;gap:14px">
+          <sc-for list="{{ homePillars }}" as="p" hint-placeholder-count="3">
+            <div class="content-card focus-card" style="border-radius:24px;padding:24px 26px;display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start">
+              <div style="font-family:'Anton',sans-serif;font-size:20px;color:#EFF4FF;letter-spacing:.06em">{{ p.n }}</div>
+              <div>
+                <h3 style="font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:21px;line-height:1.3;color:#EFF4FF">{{ p.t }}</h3>
+                <p class="muted-copy" style="margin-top:8px;font-size:14px;line-height:1.75">{{ p.d }}</p>
+              </div>
+            </div>
+          </sc-for>
+          <details class="info-toggle content-card" style="border-radius:24px;padding:0;overflow:hidden">
+            <summary style="padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+              <span style="font-family:'Noto Sans SC',sans-serif;font-weight:700;font-size:14px;color:#EFF4FF">展开查看完整说明</span>
+              <span class="toggle-icon" style="display:flex;color:#EFF4FF" dangerouslySetInnerHTML="{{ chevron }}"></span>
+            </summary>
+            <p class="muted-copy" style="padding:0 26px 24px">我提供的是<span style="color:#EFF4FF;font-weight:500">从数字设计到实体展示</span>的综合设计服务：先把逻辑梳理清楚，再把视觉表达出来，最后通过场景搭建与 3D 打印，把项目变成真正可以被观看、被理解、被展示的成果。</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 3 : THREE SERVICES (overview) ===================== -->
+  <section id="services" data-screen-label="Services" style="position:relative;width:100%;background:#050607;padding:clamp(72px,9vw,130px) 0">
+    <div class="section-inner">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:clamp(40px,5vw,72px)">
+        <div style="position:relative;max-width:820px">
+          <h2 class="section-title">从数字界面、展示场景<br>到实体模型，<span style="font-family:'Condiment',cursive;color:#EFF4FF;font-weight:400">one</span> 体化设计支持</h2>
+        </div>
+        <div style="text-align:right">
+          <div style="font-family:'Anton',sans-serif;font-size:clamp(28px,3vw,44px);line-height:1;color:#EFF4FF;text-transform:uppercase">三大服务方向</div>
+          <div style="margin-top:14px;width:clamp(160px,18vw,260px);height:8px;background:#EFF4FF;margin-left:auto"></div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+        <sc-for list="{{ services }}" as="sv" hint-placeholder-count="3">
+          <div class="content-card focus-card" style="border-radius:24px;padding:18px;display:flex;flex-direction:column;text-decoration:none">
+            <div style="position:relative;width:100%;padding-bottom:100%;border-radius:24px;overflow:hidden">
+              <video src="{{ sv.video }}" autoplay loop muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+              <div style="position:absolute;top:14px;left:14px;font-family:'Anton',sans-serif;font-size:46px;line-height:1;color:#EFF4FF;mix-blend-mode:exclusion;opacity:0.95">{{ sv.n }}</div>
+            </div>
+            <div style="padding:22px 8px 8px">
+              <h3 style="font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:clamp(20px,1.7vw,26px);color:#EFF4FF;letter-spacing:0">{{ sv.t }}</h3>
+              <p style="margin-top:12px;font-family:'Noto Sans SC',sans-serif;font-weight:300;font-size:14px;line-height:1.75;color:#EFF4FF;opacity:0.82">{{ sv.value }}</p>
+
+              <details class="info-toggle content-subcard" style="margin-top:18px;border-radius:16px;padding:0;overflow:hidden">
+                <summary style="padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px">
+                  <span style="font-family:'Noto Sans SC',sans-serif;font-weight:700;font-size:13px;color:#EFF4FF">展开查看说明</span>
+                  <span class="toggle-icon" style="display:flex;color:#EFF4FF" dangerouslySetInnerHTML="{{ chevron }}"></span>
+                </summary>
+                <div style="padding:0 18px 18px">
+                  <p style="font-family:'Noto Sans SC',sans-serif;font-weight:300;font-size:13px;line-height:1.8;color:#EFF4FF;opacity:.74">{{ sv.desc }}</p>
+                </div>
+              </details>
+
+              <a href="Services.dc.html" class="cta-btn" style="margin-top:18px;display:inline-flex;align-items:center;justify-content:space-between;gap:12px;width:100%;background:rgba(255,255,255,.95);color:#050607;font-family:'Anton',sans-serif;font-size:14px;letter-spacing:.04em;text-transform:uppercase;padding:15px 18px;border-radius:999px;text-decoration:none">查看完整服务<span style="display:flex" dangerouslySetInnerHTML="{{ chevronDark }}"></span></a>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="margin-top:clamp(36px,4vw,56px);display:flex;justify-content:center">
+        <a href="Services.dc.html" class="cta-btn liquid-glass glass-hover" style="display:inline-flex;align-items:center;gap:12px;color:#EFF4FF;font-family:'Anton',sans-serif;font-size:15px;letter-spacing:0.04em;text-transform:uppercase;padding:18px 36px;border-radius:999px;text-decoration:none">查看完整服务内容与套餐<span style="display:flex;color:#EFF4FF" dangerouslySetInnerHTML="{{ chevron }}"></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 4 : GRADUATION TEASER ===================== -->
+  <section data-screen-label="Graduation" style="position:relative;width:100%;background:#050607;padding:clamp(72px,9vw,130px) 0;overflow:hidden">
+    <video class="grad-bg-video" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260616_212935_bbf608da-62d1-4f25-9be4-c346e4d09cc8.mp4" autoplay loop muted playsinline preload="auto"></video>
+    <canvas class="grad-particles" aria-hidden="true"></canvas>
+    <div class="grad-glow" aria-hidden="true"></div>
+    <div class="grad-bg-overlay" aria-hidden="true"></div>
+    <div class="section-inner">
+      <div class="content-card" style="border-radius:24px;padding:clamp(36px,5vw,64px);display:flex;flex-wrap:wrap;gap:48px;justify-content:space-between;align-items:center">
+        <div style="position:relative;flex:1 1 460px">
+          <span style="font-family:'Condiment',cursive;font-size:clamp(24px,3vw,46px);color:#EFF4FF;mix-blend-mode:exclusion;opacity:0.9;transform:rotate(-2deg);display:inline-block">graduation</span>
+          <h2 class="section-title" style="margin-top:6px;font-size:clamp(26px,3.6vw,48px)">毕业设计专项：从概念表达<br>到 3D 打印展示的一站式支持</h2>
+          <details class="info-toggle" style="margin-top:20px;max-width:600px">
+            <summary style="display:inline-flex;align-items:center;gap:10px;font-family:'Noto Sans SC',sans-serif;font-weight:700;font-size:14px;color:#EFF4FF">
+              展开查看毕业设计说明<span class="toggle-icon" style="display:flex" dangerouslySetInnerHTML="{{ chevron }}"></span>
+            </summary>
+            <p class="muted-copy" style="margin-top:14px">帮助工业设计、视觉设计、产品设计、建筑模型、雕塑、潮玩、IP形象等方向的学生，将毕业设计从概念、模型到展示现场完整串联，让作品被看见、被理解、被记住。</p>
+          </details>
+        </div>
+        <div style="flex:0 0 auto;display:flex;flex-direction:column;gap:16px;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ gradTeaser }}" as="g" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:12px;font-family:'Noto Sans SC',sans-serif;font-size:15px;color:#EFF4FF;opacity:0.9"><span style="width:6px;height:6px;border-radius:999px;background:#EFF4FF;flex:none"></span>{{ g }}</div>
+            </sc-for>
+          </div>
+          <a href="Graduation.dc.html" class="cta-btn" style="margin-top:28px;background:#EFF4FF;color:#050607;font-family:'Anton',sans-serif;font-size:15px;letter-spacing:0.03em;text-transform:uppercase;padding:16px 30px;border-radius:999px;text-decoration:none;display:inline-flex;align-items:center;gap:10px">查看毕业设计服务<span style="display:flex" dangerouslySetInnerHTML="{{ chevronDark }}"></span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 5 : SUITABLE CLIENTS ===================== -->
+  <section data-screen-label="Clients" style="position:relative;width:100%;background:#050607;padding:clamp(72px,9vw,130px) 0">
+    <div class="section-inner">
+      <div style="position:relative;margin-bottom:clamp(40px,5vw,64px)">
+        <h2 class="section-title" style="max-width:820px">适合正在把想法变成<br>产品、场景或<span style="font-family:'Condiment',cursive;color:#EFF4FF;font-weight:400">real</span> 实体作品的人</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px">
+          <sc-for list="{{ clients }}" as="f" hint-placeholder-count="6">
+            <details class="info-toggle content-card focus-card" style="border-radius:20px;padding:0;overflow:hidden">
+              <summary style="padding:24px 24px 22px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+                <span>
+                  <span style="font-family:'Anton',sans-serif;font-size:13px;letter-spacing:.1em;color:#EFF4FF">{{ f.idx }}</span>
+                  <span style="display:block;margin-top:12px;font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:21px;color:#EFF4FF">{{ f.t }}</span>
+                </span>
+                <span class="toggle-icon" style="display:flex;color:#EFF4FF;margin-top:4px" dangerouslySetInnerHTML="{{ chevron }}"></span>
+              </summary>
+              <p style="padding:0 24px 24px;font-family:'Noto Sans SC',sans-serif;font-weight:300;font-size:13.5px;line-height:1.8;color:#EFF4FF;opacity:.72">{{ f.d }}</p>
+            </details>
+          </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 6 : WORKFLOW ===================== -->
+  <section id="workflow" data-screen-label="Workflow" class="workflow-hero" style="position:relative;width:100%">
+    <video class="workflow-bg-video" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260511_230229_7c9bc431-46cf-489a-948d-e8144d8eb5d4.mp4" autoplay loop muted playsinline preload="auto"></video>
+    <div class="workflow-bg-shade" aria-hidden="true"></div>
+    <div class="workflow-ambient" aria-hidden="true"></div>
+    <div class="section-inner workflow-layout">
+      <div class="workflow-copy">
+        <span class="workflow-script">workflow</span>
+        <h2 class="section-title" style="margin-top:8px">从想法到展示成果，<br>每一步都可控、可沟通、可交付</h2>
+        <p class="workflow-note">从沟通、设计、制作到最终交付，把复杂项目拆成清晰节点。每个阶段都能确认方向、看到进度，并根据展示目标持续调整。</p>
+      </div>
+      <div class="workflow-grid">
+        <sc-for list="{{ workflowPhases }}" as="w" hint-placeholder-count="3">
+          <details class="info-toggle workflow-card">
+            <summary>
+              <div class="workflow-number">{{ w.n }}</div>
+              <h3>{{ w.t }}</h3>
+              <p>{{ w.d }}</p>
+              <span class="toggle-icon" style="display:flex" dangerouslySetInnerHTML="{{ chevron }}"></span>
+            </summary>
+            <div class="workflow-steps">
+              <sc-for list="{{ w.steps }}" as="s" hint-placeholder-count="3">
+                <div class="workflow-step"><span></span>{{ s }}</div>
+              </sc-for>
+            </div>
+          </details>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 7 : WHY CHOOSE ME ===================== -->
+  <section data-screen-label="WhyMe" style="position:relative;width:100%;background:#050607;padding:clamp(72px,9vw,130px) 0">
+    <div class="section-inner">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(40px,5vw,64px)">
+        <h2 class="section-title" style="max-width:760px">设计经验、产品理解与实体落地能力，是这个服务的<span style="color:#EFF4FF">核心差异</span></h2>
+        <div style="font-family:'Anton',sans-serif;font-size:clamp(26px,2.6vw,40px);text-transform:uppercase;color:#EFF4FF">为什么选择我</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px">
+        <sc-for list="{{ why }}" as="w" hint-placeholder-count="6">
+          <details class="info-toggle content-card focus-card" style="border-radius:20px;padding:0;overflow:hidden">
+            <summary style="padding:26px 26px 24px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px">
+              <span>
+                <span style="font-family:'Anton',sans-serif;font-size:18px;color:#EFF4FF;letter-spacing:0.06em">{{ w.n }}</span>
+                <span style="display:block;margin-top:14px;font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:20px;line-height:1.3;color:#EFF4FF">{{ w.t }}</span>
+              </span>
+              <span class="toggle-icon" style="display:flex;color:#EFF4FF;margin-top:4px" dangerouslySetInnerHTML="{{ chevron }}"></span>
+            </summary>
+            <p style="padding:0 26px 26px;font-family:'Noto Sans SC',sans-serif;font-weight:300;font-size:13.5px;line-height:1.85;color:#EFF4FF;opacity:0.74">{{ w.d }}</p>
+          </details>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 8 : FINAL CTA (video) ===================== -->
+  <section id="contact" data-screen-label="CTA" style="position:relative;width:100%;min-height:72vh;background:#050607;overflow:hidden">
+    <video src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260331_055729_72d66327-b59e-4ae9-bb70-de6ccb5ecdb0.mp4" autoplay loop muted playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,0.55) 0%,rgba(0,0,0,0.1) 50%,rgba(0,0,0,0.3) 100%)"></div>
+
+    <div style="position:absolute;top:0;right:0;height:100%;width:100%;display:flex;align-items:center;justify-content:flex-end;padding:0 clamp(20px,6vw,140px) 0 15%;z-index:3">
+      <div style="position:relative;text-align:right">
+        <span style="position:absolute;top:-1.3em;left:0;font-family:'Condiment',cursive;font-size:clamp(17px,4vw,68px);color:#EFF4FF;mix-blend-mode:exclusion;opacity:0.9;transform:rotate(-3deg)">go beyond</span>
+        <h2 style="font-family:'Noto Sans SC',sans-serif;font-weight:900;font-size:clamp(18px,4.4vw,60px);line-height:1.1;letter-spacing:0;color:#EFF4FF">
+          <span style="display:block;margin-bottom:clamp(8px,1.4vw,20px)">JOIN US.</span>
+          <span style="display:block">如果你的项目不只需要「设计稿」，</span>
+          <span style="display:block">而是需要被完整<span style="color:#EFF4FF">展示</span>出来</span>
+        </h2>
+      </div>
+    </div>
+
+    <div style="position:absolute;left:6%;bottom:14%;z-index:4">
+      <div class="liquid-glass" style="border-radius:1rem;display:flex;flex-direction:column;overflow:hidden">
+        <sc-for list="{{ socials }}" as="s" hint-placeholder-count="3">
+          <a href="{{ s.href }}" class="glass-hover" style="width:clamp(120px,16vw,250px);height:clamp(58px,7vw,96px);display:flex;align-items:center;gap:14px;padding:0 clamp(16px,2vw,28px);color:#EFF4FF;text-decoration:none;border-bottom:1px solid {{ s.border }}">
+            <span style="display:flex" dangerouslySetInnerHTML="{{ s.icon }}"></span>
+            <span style="font-family:'Anton',sans-serif;font-size:clamp(12px,1vw,15px);letter-spacing:0.04em;text-transform:uppercase">{{ s.label }}</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="position:relative;width:100%;background:#050607;padding:clamp(56px,7vw,96px) 0;border-top:1px solid rgba(239,244,255,0.08)">
+    <div style="max-width:1831px;width:100%;margin:0 auto;padding:0 clamp(20px,5vw,80px);display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:center">
+      <div style="max-width:560px">
+        <p style="font-family:'Noto Sans SC',sans-serif;font-weight:300;font-size:clamp(14px,1.1vw,16px);line-height:1.9;color:#EFF4FF;opacity:0.8">你可以把当前项目阶段、已有资料、模型文件、展示目标或预算范围发给我。我会先帮你判断：应该从产品体验、场景视觉，还是 3D 打印展示开始推进。</p>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:16px">
+        <a href="#contact" class="cta-btn" style="background:#EFF4FF;color:#050607;font-family:'Anton',sans-serif;font-size:15px;letter-spacing:0.03em;text-transform:uppercase;padding:18px 34px;border-radius:999px;text-decoration:none">咨询项目方案</a>
+        <a href="Services.dc.html" class="cta-btn liquid-glass glass-hover" style="color:#EFF4FF;font-family:'Anton',sans-serif;font-size:15px;letter-spacing:0.03em;text-transform:uppercase;padding:18px 34px;border-radius:999px;text-decoration:none">获取初步评估</a>
+      </div>
+    </div>
+    <div style="max-width:1831px;width:100%;margin:48px auto 0;padding:0 clamp(20px,5vw,80px);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div style="font-family:'Anton',sans-serif;font-size:16px;letter-spacing:0.04em;text-transform:uppercase;color:#EFF4FF">Orbis.Nft</div>
+      <div style="font-family:'Noto Sans SC',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#EFF4FF;opacity:0.4">© 2026 · Product · Scene · 3D Print</div>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    const kick = () => document.querySelectorAll('video').forEach(v => { v.muted = true; v.play().catch(() => {}); });
+    kick();
+    this._t1 = setTimeout(kick, 800);
+    this._t2 = setTimeout(kick, 2500);
+    this._cleanups = [];
+
+    const gradVideo = document.querySelector('.grad-bg-video');
+    if (gradVideo) {
+      gradVideo.muted = true;
+      gradVideo.loop = true;
+      gradVideo.playbackRate = 0.72;
+      const playGradVideo = () => gradVideo.play().catch(() => {});
+      gradVideo.addEventListener('loadeddata', playGradVideo);
+      gradVideo.addEventListener('canplay', playGradVideo);
+      window.addEventListener('scroll', playGradVideo, { passive: true });
+      playGradVideo();
+      this._cleanups.push(() => {
+        gradVideo.removeEventListener('loadeddata', playGradVideo);
+        gradVideo.removeEventListener('canplay', playGradVideo);
+        window.removeEventListener('scroll', playGradVideo);
+      });
+    }
+
+    const workflowVideo = document.querySelector('.workflow-bg-video');
+    if (workflowVideo) {
+      workflowVideo.muted = true;
+      workflowVideo.loop = true;
+      workflowVideo.playbackRate = 0.86;
+      const playWorkflowVideo = () => workflowVideo.play().catch(() => {});
+      workflowVideo.addEventListener('loadeddata', playWorkflowVideo);
+      workflowVideo.addEventListener('canplay', playWorkflowVideo);
+      window.addEventListener('scroll', playWorkflowVideo, { passive: true });
+      document.addEventListener('visibilitychange', playWorkflowVideo);
+      playWorkflowVideo();
+      this._cleanups.push(() => {
+        workflowVideo.removeEventListener('loadeddata', playWorkflowVideo);
+        workflowVideo.removeEventListener('canplay', playWorkflowVideo);
+        window.removeEventListener('scroll', playWorkflowVideo);
+        document.removeEventListener('visibilitychange', playWorkflowVideo);
+      });
+    }
+
+    const animatedEls = [
+      ...document.querySelectorAll('.section-inner, .content-card, .section-title, .cta-btn')
+    ].filter(el => !el.closest('[data-screen-label="Hero"]'));
+    animatedEls.forEach((el, i) => {
+      el.classList.add('reveal-on-scroll');
+      el.style.transitionDelay = `${Math.min(i % 6, 5) * 55}ms`;
+    });
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    animatedEls.forEach(el => revealObserver.observe(el));
+    this._cleanups.push(() => revealObserver.disconnect());
+
+    const cards = [...document.querySelectorAll('.content-card')];
+    const onMove = e => {
+      const card = e.currentTarget;
+      const rect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', `${((e.clientX - rect.left) / rect.width) * 100}%`);
+      card.style.setProperty('--my', `${((e.clientY - rect.top) / rect.height) * 100}%`);
+    };
+    cards.forEach(card => card.addEventListener('pointermove', onMove));
+    this._cleanups.push(() => cards.forEach(card => card.removeEventListener('pointermove', onMove)));
+
+    const canvas = document.querySelector('.grad-particles');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      const resize = () => {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.max(1, Math.floor(rect.width * dpr));
+        canvas.height = Math.max(1, Math.floor(rect.height * dpr));
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const count = Math.max(24, Math.floor((rect.width * rect.height) / 22000));
+        particles = Array.from({ length: count }, () => ({
+          x: Math.random() * rect.width,
+          y: Math.random() * rect.height,
+          vx: (Math.random() - 0.5) * 0.22,
+          vy: (Math.random() - 0.5) * 0.22,
+          r: Math.random() * 1.8 + 0.7,
+          a: Math.random() * 0.35 + 0.18
+        }));
+      };
+      const draw = () => {
+        const rect = canvas.getBoundingClientRect();
+        ctx.clearRect(0, 0, rect.width, rect.height);
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < -5) p.x = rect.width + 5;
+          if (p.x > rect.width + 5) p.x = -5;
+          if (p.y < -5) p.y = rect.height + 5;
+          if (p.y > rect.height + 5) p.y = -5;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(239,244,255,${p.a})`;
+          ctx.fill();
+        });
+        this._gradParticleRaf = requestAnimationFrame(draw);
+      };
+      resize();
+      window.addEventListener('resize', resize);
+      this._gradParticleRaf = requestAnimationFrame(draw);
+      this._cleanups.push(() => {
+        window.removeEventListener('resize', resize);
+        cancelAnimationFrame(this._gradParticleRaf);
+      });
+    }
+  }
+  componentWillUnmount() {
+    clearTimeout(this._t1);
+    clearTimeout(this._t2);
+    (this._cleanups || []).forEach(fn => fn());
+  }
+
+  renderVals() {
+    const BASE = 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/';
+    const H = s => ({ __html: s });
+    const mail = H('<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>');
+    const twitter = H('<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>');
+    const github = H('<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 4 5 4 5 4c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 11c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>');
+
+    const socials = [
+      { icon: mail, label: 'Email', href: '#contact', border: 'rgba(255,255,255,0.1)' },
+      { icon: twitter, label: 'Twitter', href: '#', border: 'rgba(255,255,255,0.1)' },
+      { icon: github, label: 'Github', href: '#', border: 'transparent' },
+    ];
+
+    const homePillars = [
+      { n: '01', t: '产品只有界面', d: '很多项目的问题，不是想法不好，而是表达不完整。' },
+      { n: '02', t: '方案只有概念', d: '有概念但缺少展示场景，观众很难进入作品所表达的世界。' },
+      { n: '03', t: '模型文件缺少呈现', d: '毕业设计只有模型文件，却缺少能打动评审的完整呈现。' },
+    ];
+
+    const services = [
+      { n: '01', t: '产品体验设计', video: BASE + 'hf_20260331_053923_22c0a6a5-313c-474c-85ff-3b50d25e944a.mp4',
+        desc: '基于业务目标和用户路径，完成 PC 端、移动端、小程序、后台系统等产品体验设计，让产品从「能用」走向「清晰、专业、可落地」。',
+        value: '帮你的产品把逻辑讲清楚，把界面做专业，让设计稿变成能上线的产品。' },
+      { n: '02', t: '场景视觉搭建', video: BASE + 'hf_20260331_054411_511c1b7a-fb2f-42ef-bf6c-32c0b1a06e79.mp4',
+        desc: '围绕项目主题和展示目标，搭建具有空间感、氛围感和叙事感的视觉场景，让观众不仅看到作品，还能进入作品所表达的世界。',
+        value: '帮你的项目从平面展示升级为有氛围、有故事、有记忆点的场景表达。' },
+      { n: '03', t: '3D打印展示落地', video: BASE + 'hf_20260331_055427_ac7035b5-9f3b-4289-86fc-941b2432317d.mp4',
+        desc: '将数字模型、设计概念或创意方案，通过 3D 打印转化为实体作品，并结合展示场景、灯光氛围与视觉包装，形成完整展示成果。',
+        value: '帮你的数字模型真正落地，变成可以参展、答辩、路演和交付的实体作品。' },
+    ];
+
+    const gradTeaser = ['模型可打印性评估与打印方案', '展板 / 场景 / 答辩视觉设计', '作品拍摄与作品集页面包装'];
+
+    const clients = [
+      { idx: '01', t: '创业团队', d: '需要将产品想法快速变成可演示、可路演、可开发的产品设计方案。' },
+      { idx: '02', t: '中小企业', d: '需要升级官网、后台、移动端、小程序或产品展示方式，提升专业感和可信度。' },
+      { idx: '03', t: '教育与培训机构', d: '需要课程平台、学习系统、活动页面、项目展示和视觉包装支持。' },
+      { idx: '04', t: '毕业设计学生', d: '需要将模型、作品、展板、PPT和现场展示整合成更完整的毕业设计成果。' },
+      { idx: '05', t: '设计师与创作者', d: '需要将 IP 形象、潮玩、雕塑、道具或创意模型通过 3D 打印变成实体作品。' },
+      { idx: '06', t: '展示与活动团队', d: '需要为发布会、展览、路演、沙龙和品牌活动搭建统一的视觉场景。' },
+    ];
+
+    const workflowPhases = [
+      { n: '01', t: '需求沟通', d: '了解项目背景、目标受众、使用场景、展示方式、预算和时间节点。',
+        steps: ['方向梳理：明确项目核心表达：产品上线、商业路演、毕业答辩，还是实体展示。', '设计规划：确定产品结构、视觉方向、展示场景、打印方案或交付清单。'] },
+      { n: '02', t: '视觉设计', d: '完成界面、场景、展板、PPT、展示物料或视觉包装设计。',
+        steps: ['3D打印评估：检查模型结构、尺寸、材料、支撑、强度、运输和展示方式。', '制作对接：根据项目需要对接打印、打样、展示底座、拍摄和后期包装。'] },
+      { n: '03', t: '最终交付', d: '交付可上线的设计稿、可展示的场景方案，或可参展的实体作品。',
+        steps: [] },
+    ];
+
+    const why = [
+      { n: '01', t: '大厂产品设计经验', d: '曾参与京东、新浪等互联网产品设计，理解真实产品从需求、设计到研发落地的完整流程。' },
+      { n: '02', t: '熟悉 PC 与移动端体验', d: '能够处理 Web、App、小程序、H5、后台系统等多种产品形态。' },
+      { n: '03', t: '具备场景化表达能力', d: '不只做单张页面，而是能围绕项目主题搭建完整视觉场景，让作品更有表现力。' },
+      { n: '04', t: '懂 3D 打印落地', d: '了解模型打印、材料选择、生产对接、运输风险和展示效果，不停留在概念层面。' },
+      { n: '05', t: '适合复杂项目整合', d: '适合同时包含产品、视觉、模型、展板、PPT、展示现场等多元素的综合项目。' },
+      { n: '06', t: '交付更完整', d: '从线上界面到线下展示，从设计稿到实体模型，帮助项目形成完整闭环。' },
+    ];
+
+    const nav = [
+      { label: '首页', href: '#' },
+      { label: '团队介绍', href: '#team' },
+      { label: '服务内容', href: 'Services.dc.html' },
+      { label: '毕业设计', href: 'Graduation.dc.html' },
+      { label: '工作流程', href: '#workflow' },
+      { label: '联系', href: '#contact' },
+    ];
+
+    const tags = ['产品体验设计','场景视觉搭建','3D打印展示','毕业设计落地','Figma / AI / 3D 工作流'];
+
+    const chevron = H('<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>');
+    const chevronDark = H('<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#050607" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>');
+
+    return { nav, tags, socials, homePillars, services, gradTeaser, clients, workflowPhases, why, chevron, chevronDark };
+  }
+}
+</script>
+</body>
+</html>
